@@ -1,29 +1,8 @@
-# sysweb
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### v1.2
+#### 新增日期查询，年月日查询
+#### 新增修改功能
+#### 修改title为个人财务报表v1.2
+#### 修复个人剩余金额显示为负数的问题
+#### 新增消费余额的颜色
+#### 新增导出功能
+#### 修改登录界面背景
