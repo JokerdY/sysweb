@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Menu mode="horizontal" :theme="theme1" active-name="1">
+    <Menu mode="horizontal" theme="light" active-name="1">
       <Row>
         <Col span="12">
           <div v-if=!this.$root.isLogin>
@@ -38,6 +38,9 @@
       </Row>
     </Menu>
     <div v-if=!this.$root.isLogin>
+      <div class="background">
+        <img :src="imgSrc" width="100%" height="100%" alt=""/>
+      </div>
       <div class="center_css">
         <Login/>
       </div>
@@ -61,7 +64,9 @@ import Home from '@/components/Home'
 
 export default {
   data() {
-    return {}
+    return {
+      imgSrc:require('./assets/login.png')
+    }
   },
   methods: {
     exit() {
@@ -89,3 +94,16 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.form_css {
+    min-width: 1000px;
+}
+
+.background {
+  width: 100%;
+  height: 100%; /**宽高100%是为了图片铺满屏幕 */
+  z-index: -1;
+  position: absolute;
+}
+</style>

@@ -48,3 +48,11 @@
     max-width: 500px;
     margin: 10% auto 30px;
 }
+
+.ivu-table .expenditure-amount {
+    color: #f30;
+}
+
+.ivu-table .income-amount {
+    color: #0f0;
+}

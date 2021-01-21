@@ -63,7 +63,7 @@ export default {
                 userName: res.data.data.nickName,
                 userId: res.data.data.id
               }
-              this.cookie.setCookie(loginInfo, 7)
+              this.cookie.setCookie(loginInfo, 1)
               this.$Message['success']({
                 background: true,
                 content: '登录成功'
@@ -86,5 +86,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
