@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../components/Home'
-import Login from '../components/Login'
+import login from '@/views/login/login'
+import home from '@/views/home/home'
 import cookie from "@/util/cookie";
 
 Vue.use(VueRouter)
@@ -9,16 +9,16 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/login',
-        component: Login
+        component: login
     },
     {
         path: '/',
-        component: Home
+        component: home
     },
     {
         path: '/home',
-        name: 'Home',
-        component: Home
+        name: 'home',
+        component: home
     },
     {
         path: '/about',

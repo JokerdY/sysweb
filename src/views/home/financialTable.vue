@@ -1,12 +1,10 @@
 <template>
-  <div class="LoginTitle">
-    fddd
-  </div>
+
 </template>
 
 <script>
 export default {
-  name: "LoginTitle"
+name: "financialTable"
 }
 </script>
 

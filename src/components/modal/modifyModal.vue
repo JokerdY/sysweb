@@ -119,6 +119,7 @@ export default {
       this.modifyCancel()
     },
     modifyCancel() {
+      this.$parent.modifyModal = false;
       this.modal = false;
     },
   }

@@ -48,100 +48,121 @@
                   :modifyList="modifyForm"
                   :typeDict="typeDict"
                   @refresh="refresh"/>
-    <div class="first-wrap">
-      <Button icon="md-add" type="primary" ghost @click="addCommand">新增</Button>
-      <div style="position: absolute;right: 0;display: flex">
-        <div style="margin-right: 20px">
-          <div v-if="date.dateType==='0'">
-            <DatePicker type="date"
-                        show-week-numbers
-                        placeholder="选择查询日期"
-                        format="yyyy-MM-dd"
-                        value="yyyy-MM-dd"
-                        style="width: 200px"
-                        @on-change="date.start = $event"
-                        @on-ok="getData(1,null)"
-                        @on-clear="dateClear()"
-                        @on-clickoutside="getData(1,null)"
-                        confirm
-            />
-          </div>
-          <div v-else-if="date.dateType==='1'">
-            <DatePicker type="year"
-                        placeholder="默认查询今年记录"
-                        @on-change="date.start = $event"
-                        @on-ok="getData(1,null)"
-                        @on-clear="dateClear()"
-                        @on-clickoutside="getData(1,null)"
-                        confirm
-            />
-          </div>
-          <div v-else-if="date.dateType==='2'">
-            <DatePicker type="month"
-                        placeholder="默认查询本月记录"
-                        style="width: 200px"
-                        @on-change="date.start = $event"
-                        @on-ok="getData(1,null)"
-                        @on-clear="dateClear()"
-                        @on-clickoutside="getData(1,null)"
-                        confirm
-            />
-          </div>
-          <div v-else-if="date.dateType==='3'">
-            <DatePicker type="daterange"
-                        split-panels
-                        show-week-numbers
-                        placeholder="默认查询当天记录"
-                        style="width: 200px"
-                        @on-change="date.start = $event"
-                        @on-ok="getDataRange()"
-                        @on-clear="dateClear()"
-                        @on-clickoutside="getDataRange()"
-                        confirm
-            />
+    <div class="box">
+      <div class="left">
+        <Menu theme="light" accordion active-name="1-1" :open-names="['1']">
+          <Submenu name="1">
+            <template slot="title">
+              <Icon type="ios-paper"/>
+              财务报表
+            </template>
+            <MenuItem name="1-1">列表信息</MenuItem>
+          </Submenu>
+          <Submenu name="2">
+            <template slot="title">
+              <Icon type="ios-people"/>
+              可视化报表
+            </template>
+            <MenuItem name="2-1" replace="/about">新增用户</MenuItem>
+            <MenuItem name="2-2">活跃用户</MenuItem>
+          </Submenu>
+        </Menu>
+      </div>
+      <div class="right">
+        <div class="first-wrap">
+          <Button icon="md-add" type="primary" ghost @click="addCommand">新增</Button>
+          <div style="position: absolute;right: 0;display: flex">
+            <div style="margin-right: 20px">
+              <div v-if="date.dateType==='0'">
+                <DatePicker type="date"
+                            show-week-numbers
+                            placeholder="选择查询日期"
+                            format="yyyy-MM-dd"
+                            value="yyyy-MM-dd"
+                            style="width: 200px"
+                            @on-change="date.start = $event"
+                            @on-ok="getData(1,null)"
+                            @on-clear="dateClear()"
+                            @on-clickoutside="getData(1,null)"
+                            confirm
+                />
+              </div>
+              <div v-else-if="date.dateType==='1'">
+                <DatePicker type="year"
+                            placeholder="默认查询今年记录"
+                            @on-change="date.start = $event"
+                            @on-ok="getData(1,null)"
+                            @on-clear="dateClear()"
+                            @on-clickoutside="getData(1,null)"
+                            confirm
+                />
+              </div>
+              <div v-else-if="date.dateType==='2'">
+                <DatePicker type="month"
+                            placeholder="默认查询本月记录"
+                            style="width: 200px"
+                            @on-change="date.start = $event"
+                            @on-ok="getData(1,null)"
+                            @on-clear="dateClear()"
+                            @on-clickoutside="getData(1,null)"
+                            confirm
+                />
+              </div>
+              <div v-else-if="date.dateType==='3'">
+                <DatePicker type="daterange"
+                            split-panels
+                            show-week-numbers
+                            placeholder="默认查询当天记录"
+                            style="width: 200px"
+                            @on-change="date.start = $event"
+                            @on-ok="getDataRange()"
+                            @on-clear="dateClear()"
+                            @on-clickoutside="getDataRange()"
+                            confirm
+                />
+              </div>
+            </div>
+            <Select clearable
+                    style="width:150px;"
+                    v-model="selectType"
+                    placeholder="选择消费类型"
+                    @on-change="getData(1,null)"
+                    @on-clear="getData(1,null)">
+              <Option v-for="item in typeDict" :value="item.convertName" :key="item.rowId">
+                {{ item.convertName }}
+              </Option>
+            </Select>
           </div>
         </div>
-        <Select clearable
-                style="width:150px;"
-                v-model="selectType"
-                placeholder="选择消费类型"
-                @on-change="getData(1,null)"
-                @on-clear="getData(1,null)">
-          <Option v-for="item in typeDict" :value="item.convertName" :key="item.rowId">
-            {{ item.convertName }}
-          </Option>
-        </Select>
-      </div>
-    </div>
-    <div class="second-wrap">
-      <RadioGroup v-model="date.dateType" type="button" size="small" @on-change="changeRadio($event)">
-        <Radio label="0">
-          <span>全部</span>
-        </Radio>
-        <Radio label="1">
-          <span>年</span>
-        </Radio>
-        <Radio label="2">
-          <span>月</span>
-        </Radio>
-        <Radio label="3">
-          <span>日</span>
-        </Radio>
-      </RadioGroup>
-      <Button siz="default"
-              style="float:right;"
-              custom-icon=""
-              icon="ios-download-outline"
-              type="primary"
-              shape="circle"
-              v-on:click="exportButton()"
-              ghost>导出
-      </Button>
-    </div>
-    <div class="table-wrap">
-      <Table border :loading="loading" :columns="titleColumns" :data="pageData"></Table>
-      <div><span class="label">{{ this.$root.userName }}的当前可用余额为：{{ this.remainAmount }}元</span></div>
-      <div><span class="label">
+        <div class="second-wrap">
+          <RadioGroup v-model="date.dateType" type="button" size="small" @on-change="changeRadio($event)">
+            <Radio label="0">
+              <span>全部</span>
+            </Radio>
+            <Radio label="1">
+              <span>年</span>
+            </Radio>
+            <Radio label="2">
+              <span>月</span>
+            </Radio>
+            <Radio label="3">
+              <span>日</span>
+            </Radio>
+          </RadioGroup>
+          <Button siz="default"
+                  style="float:right;"
+                  custom-icon=""
+                  icon="ios-download-outline"
+                  type="primary"
+                  shape="circle"
+                  v-on:click="exportButton()"
+                  ghost>导出
+          </Button>
+        </div>
+        <div class="table-wrap">
+          <Table border :loading="loading" :columns="titleColumns" :data="pageData"></Table>
+          <div><span class="label">{{ this.$root.userName }}的当前可用余额为：{{ this.remainAmount }}元</span></div>
+          <div><span class="label">
       <span v-if="date.dateType==='0'">共计</span>
       <span v-else-if="date.dateType==='1'">今年</span>
       <span v-else-if="date.dateType==='2'">本月</span>
@@ -149,11 +170,13 @@
       <span v-if="this.dayConsumptionAmount>0">消费：{{ this.dayConsumptionAmount }}</span>
       <span v-else>盈余：{{ this.dayConsumptionAmount * -1 }}</span>
       元</span></div>
-    </div>
-    <div class="page-wrap">
-      <Page :total="dataCount" :page-size="pageSize" show-total show-elevator class="paging"
-            @on-change="changePage"
-            @on-page-size-change="changePageSize"></Page>
+        </div>
+        <div class="page-wrap">
+          <Page :total="dataCount" :page-size="pageSize" show-total show-elevator class="paging"
+                @on-change="changePage"
+                @on-page-size-change="changePageSize"></Page>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -163,7 +186,7 @@ import axios from "axios";
 import modifyModal from "@/components/modal/modifyModal";
 
 export default {
-  name: 'Home',
+  name: 'home',
   components: {modifyModal},
   data() {
     return {
@@ -199,6 +222,7 @@ export default {
               }
             }, params.index + (this.pageNum - 1) * this.pageSize + 1);
           },
+          width: 120,
           align: 'center',
           resizable: true,
         },
@@ -440,8 +464,20 @@ export default {
     // 剩余金额
     async getRemain() {
       let params = new URLSearchParams();
-      let userId = this.cookie.getCookie("userId")
-      params.append('userId', userId)
+      params.append('userId', this.cookie.getCookie("userId"))
+      params.append('dateType', this.date.dateType)
+      if (this.date.start !== '' && this.date.start !== undefined) {
+        params.append('startDate', this.date.start)
+      }
+      if (this.date.end !== '' && this.date.end !== undefined) {
+        params.append('endDate', this.date.end)
+      }
+      if (this.selectType !== '' && this.selectType !== undefined) {
+        let type = this.typeDict.filter(s => {
+          return s.convertName === this.selectType
+        }).map(s => s.rowId)[0];
+        params.append("type", type)
+      }
       await axios.post('/financial/getRemainById', params)
           .then(res => {
             if (res.data.status === 'success') {
@@ -529,7 +565,7 @@ export default {
       let convertName = this.typeDict.filter(s => {
         return Number(s.rowId) === this.pageData[index].type
       }).map(s => s.convertName)[0];
-      this.modifyModal = true
+      this.modifyModal = true;
       this.modifyForm.consumptionAmount = (this.pageData[index].consumptionAmount + "").substring(1)
       this.modifyForm.type = convertName
       this.modifyForm.content = this.pageData[index].content
@@ -599,6 +635,28 @@ export default {
   flex-flow: column;
   justify-content: center;
   position: relative;
+
+  .box {
+    width: 1280px;
+    padding: 16px 0;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+  }
+
+  .left {
+  }
+
+  Menu {
+    background: #dedede;
+  }
+
+  .right {
+    margin-left: 30px;
+    border: 1px solid #dedede;
+    border-radius: 8px;
+    padding: 20px;
+  }
 
   .first-wrap {
     position: relative;

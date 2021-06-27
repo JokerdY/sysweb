@@ -23,7 +23,7 @@
         <!--        登录 跳login 登录后注销回跳login 登录成功时isLogin=true-->
         <Col span="12">
           <div style="float:right">
-            <MenuItem name="2" v-if="userId===''">
+            <MenuItem name="2" v-if="this.$root.userName===''">
               <Icon type="md-person"/>
               登录
             </MenuItem>
@@ -58,9 +58,10 @@
 <style scoped>
 
 </style>
+
 <script>
-import Login from '@/components/Login'
-import Home from '@/components/Home'
+import Login from '@/views/login/login'
+import Home from '@/views/home/home'
 
 export default {
   data() {
@@ -96,10 +97,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.form_css {
-    min-width: 1000px;
-}
-
 .background {
   width: 100%;
   height: 100%; /**宽高100%是为了图片铺满屏幕 */
